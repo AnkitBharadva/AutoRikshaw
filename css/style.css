@@ -381,22 +381,31 @@ body.mobile-bg {
     position: relative;
     background: var(--player-bg);
     backdrop-filter: blur(15px);
-    border-radius: 24px;
-    padding: 8px 22px 8px 8px;
+    border-radius: 26px;
+    padding: 12px 20px 10px 16px;
     display: flex;
-    align-items: center;
-    gap: 18px;
-    width: 720px;
-    max-width: 88%;
+    flex-direction: column;
+    gap: 8px;
+    width: 740px;
+    max-width: 90%;
     border: 1px solid rgba(255,255,255,0.05);
     box-shadow: 0 20px 40px rgba(0,0,0,0.5);
     margin-bottom: 8px;
 }
 
+.player-top-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    width: 100%;
+}
+
 .album-art-container {
     position: relative;
-    width: 44px;
-    height: 44px;
+    width: 46px;
+    height: 46px;
+    flex-shrink: 0;
 }
 
 .album-art {
@@ -432,27 +441,29 @@ body.mobile-bg {
 .track-details {
     flex: 1;
     min-width: 0;
+    text-align: left;
 }
 
 .track-title {
-    font-size: 0.9rem;
-    font-weight: 600;
+    font-size: 1rem;
+    font-weight: 700;
     margin-bottom: 2px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    color: #ffffff;
 }
 
 .track-artist {
-    font-size: 0.72rem;
+    font-size: 0.76rem;
     color: var(--text-muted);
-    margin-bottom: 6px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
 }
 
 .timeline {
+    width: 100%;
     display: flex;
     align-items: center;
     gap: 12px;
@@ -872,59 +883,79 @@ body.mobile-bg {
     }
     .player {
         width: 95%;
-        padding: 14px 16px 14px 12px;
-        flex-direction: row;
+        padding: 14px 16px 12px 14px;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+        border-radius: 28px;
+        min-height: 112px;
+    }
+    .player-top-row {
+        display: flex;
         align-items: center;
         justify-content: space-between;
-        gap: 14px;
-        border-radius: 30px;
-        min-height: 84px;
+        gap: 12px;
+        width: 100%;
     }
     .album-art-container {
         display: block;
-        width: 56px;
-        height: 56px;
+        width: 48px;
+        height: 48px;
         flex-shrink: 0;
     }
     .track-details {
         flex: 1;
         text-align: left;
         min-width: 0;
+        padding-right: 4px;
     }
     .track-title {
-        font-size: 0.98rem;
+        font-size: 0.95rem;
         font-weight: 700;
-        margin-bottom: 3px;
+        margin-bottom: 2px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
     .track-artist {
-        font-size: 0.75rem;
-        margin-bottom: 6px;
+        font-size: 0.72rem;
+        color: var(--text-muted);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    .player-controls {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        flex-shrink: 0;
+    }
+    .player-controls .icon-btn svg {
+        width: 18px;
+        height: 18px;
+    }
+    .play-btn-main {
+        width: 40px;
+        height: 40px;
+    }
+    .play-btn-main svg {
+        width: 20px;
+        height: 20px;
+    }
+    .timeline {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-top: 2px;
     }
     .time {
         font-size: 0.68rem;
     }
     .progress-bar {
+        flex: 1;
         height: 6px;
         border-radius: 6px;
-    }
-    .player-controls {
-        gap: 12px;
-        flex-shrink: 0;
-    }
-    .mobile-horn-btn {
-        display: none !important;
-    }
-    .player-controls .icon-btn svg {
-        width: 22px;
-        height: 22px;
-    }
-    .play-btn-main {
-        width: 46px;
-        height: 46px;
-    }
-    .play-btn-main svg {
-        width: 24px;
-        height: 24px;
     }
     .shortcuts {
         display: none;
