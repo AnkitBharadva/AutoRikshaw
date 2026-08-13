@@ -228,17 +228,55 @@ function prevTrack() {
     if (player && player.previousVideo) player.previousVideo();
 }
 
-progressBar.addEventListener('click', (e) => {
-    if (!player || !player.getDuration) return;
-    const width = progressBar.clientWidth;
-    const clickX = e.offsetX;
+let isScrubbing = false;
+let pendingSeekTime = 0;
+
+function handleSeek(e, isFinal = false) {
+    if (!player || !player.getDuration || !progressBar) return;
+    const rect = progressBar.getBoundingClientRect();
+    const clientX = e.touches && e.touches.length > 0 ? e.touches[0].clientX : e.clientX;
+    if (clientX === undefined) return;
+    
+    const offsetX = Math.max(0, Math.min(clientX - rect.left, rect.width));
     const duration = player.getDuration();
     
-    if (duration) {
-        const seekTime = (clickX / width) * duration;
-        player.seekTo(seekTime, true);
+    if (duration && rect.width > 0) {
+        const percent = (offsetX / rect.width) * 100;
+        progress.style.width = `${percent}%`;
+        pendingSeekTime = (offsetX / rect.width) * duration;
+        currentTimeEl.textContent = formatTime(pendingSeekTime);
+        
+        if (isFinal && typeof player.seekTo === 'function') {
+            player.seekTo(pendingSeekTime, true);
+        }
     }
-});
+}
+
+if (progressBar) {
+    progressBar.addEventListener('pointerdown', (e) => {
+        isScrubbing = true;
+        handleSeek(e, false);
+    });
+
+    window.addEventListener('pointermove', (e) => {
+        if (isScrubbing) {
+            handleSeek(e, false);
+        }
+    });
+
+    window.addEventListener('pointerup', (e) => {
+        if (isScrubbing) {
+            isScrubbing = false;
+            if (player && typeof player.seekTo === 'function') {
+                player.seekTo(pendingSeekTime, true);
+            }
+        }
+    });
+
+    progressBar.addEventListener('click', (e) => {
+        handleSeek(e, true);
+    });
+}
 
 playBtn.addEventListener('click', togglePlay);
 nextBtn.addEventListener('click', nextTrack);
