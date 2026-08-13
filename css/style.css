@@ -14,6 +14,18 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+    -webkit-tap-highlight-color: transparent !important;
+    -webkit-touch-callout: none;
+    outline: none !important;
+}
+
+*:focus, *:active, *:focus-visible {
+    outline: none !important;
+    -webkit-tap-highlight-color: transparent !important;
+}
+
+a, button, input, select, textarea, div, span, img {
+    -webkit-tap-highlight-color: transparent !important;
 }
 
 body {
@@ -185,7 +197,7 @@ body.mobile-bg {
 /* Center Content */
 .center-content {
     position: absolute;
-    top: 40%;
+    top: 33%;
     left: 50%;
     transform: translate(-50%, -50%);
     display: flex;
@@ -204,7 +216,7 @@ body.mobile-bg {
     color: #ffffff;
     -webkit-text-stroke: 1.5px #000000;
     paint-order: stroke fill;
-    margin-bottom: 55px;
+    margin-bottom: 35px;
     text-shadow: 0 4px 15px rgba(0, 0, 0, 0.9);
 }
 
@@ -212,14 +224,90 @@ body.mobile-bg {
     font-family: var(--font-gujarati);
     font-size: 8.5rem;
     font-weight: 900;
-    line-height: 1;
+    line-height: 0.95;
     text-shadow: 0 10px 30px rgba(0,0,0,0.8);
     color: #fff;
-    margin-bottom: 20px;
+    margin-bottom: 0;
 }
 
 .huge-title.lang-hindi {
     font-size: 6.8rem;
+    margin-bottom: 0;
+}
+
+/* --- Rickshaw Shayari / Quotes (Pure Text & Refresh, Pulled Snugly Under Title) --- */
+.rickshaw-quote-container {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background: none;
+    border: none;
+    border-radius: 0;
+    padding: 2px 8px;
+    backdrop-filter: none;
+    box-shadow: none;
+    cursor: pointer;
+    user-select: none;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+    margin-top: 4px;
+    max-width: 90vw;
+    pointer-events: auto !important;
+    z-index: 15;
+}
+
+.rickshaw-quote-container:hover {
+    background: none;
+    transform: translateY(-1px);
+    box-shadow: none;
+}
+
+.quote-text {
+    font-family: var(--font-gujarati), var(--font-sans);
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #ffcc00;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.9);
+    letter-spacing: 0.5px;
+    line-height: 1.3;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.quote-text.switching {
+    opacity: 0;
+    transform: translateY(-5px);
+}
+
+.quote-refresh-btn {
+    background: rgba(255, 184, 0, 0.15);
+    border: 1px solid rgba(255, 184, 0, 0.4);
+    border-radius: 50%;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffb800;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: all 0.3s ease;
+}
+
+.quote-refresh-btn:hover {
+    background: #ffb800;
+    color: #000;
+    transform: scale(1.1);
+}
+
+.quote-refresh-btn.spin svg {
+    animation: rotateQuote 0.4s ease;
+}
+
+@keyframes rotateQuote {
+    100% { transform: rotate(360deg); }
 }
 
 .center-badge {
@@ -419,6 +507,64 @@ body.mobile-bg {
     display: flex;
     align-items: center;
     gap: 20px;
+}
+
+/* Hidden on desktop, shown on mobile */
+.mobile-horn-btn {
+    display: none !important;
+}
+
+/* Mobile horn pill - hidden on desktop */
+.mobile-horn-pill {
+    display: none;
+    position: absolute;
+    bottom: calc(100% + 12px);
+    left: 8px;
+    background: rgba(30, 20, 10, 0.92);
+    border: 1px solid rgba(255, 184, 0, 0.35);
+    border-radius: 14px;
+    padding: 4px 10px;
+    gap: 7px;
+    align-items: center;
+    cursor: pointer;
+    z-index: 25;
+    color: #ffffff;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.6);
+    transition: transform 0.15s ease, background 0.15s ease;
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+}
+
+.mobile-horn-pill:active {
+    transform: scale(0.95);
+    background: rgba(255, 184, 0, 0.2);
+}
+
+.mobile-horn-pill svg {
+    color: #ffb800;
+    flex-shrink: 0;
+}
+
+.mobile-horn-pill .horn-text {
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+}
+
+.mobile-horn-pill .horn-hi {
+    font-family: var(--font-gujarati);
+    font-size: 0.68rem;
+    font-weight: 700;
+    line-height: 1.1;
+    color: #ffffff;
+}
+
+.mobile-horn-pill .horn-en {
+    font-size: 0.48rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    color: var(--text-muted);
+    line-height: 1.1;
 }
 
 .icon-btn {
@@ -658,7 +804,7 @@ body.mobile-bg {
         height: 12px;
     }
     .center-content {
-        top: 38%;
+        top: 31%;
     }
     .huge-title {
         font-size: 7rem;
@@ -669,46 +815,75 @@ body.mobile-bg {
     .track-info-top {
         font-size: 0.75rem;
         letter-spacing: 3px;
-        margin-bottom: 35px;
+        margin-bottom: 18px;
+    }
+    .huge-title {
+        margin-bottom: 0;
+        line-height: 0.95;
+    }
+    .rickshaw-quote-container {
+        padding: 2px 4px;
+        gap: 6px;
+        max-width: 95vw;
+        margin-top: 2px;
+        pointer-events: auto !important;
+    }
+    .quote-text {
+        font-size: 0.85rem;
+        white-space: normal;
+        text-align: center;
+    }
+    .quote-refresh-btn {
+        width: 22px;
+        height: 22px;
     }
     .player-container {
         bottom: 12px;
     }
     .player-extras {
-        width: 92%;
-        margin-bottom: -4px;
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: flex-end;
+        display: none;
     }
     .horn-btn {
-        padding: 5px 12px;
-        gap: 6px;
-        border-radius: 16px;
+        display: none;
+    }
+    .horn-btn {
+        padding: 4px 10px;
+        gap: 5px;
+        border-radius: 14px;
+        background: rgba(30, 20, 10, 0.9);
+        border: 1px solid rgba(255, 184, 0, 0.3);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+        display: flex;
+        align-items: center;
+        max-width: 140px;
     }
     .horn-btn svg {
         width: 14px;
         height: 14px;
+        flex-shrink: 0;
     }
     .horn-hi {
-        font-size: 0.7rem;
+        font-size: 0.68rem;
+        line-height: 1.1;
     }
     .horn-en {
-        font-size: 0.55rem;
+        font-size: 0.48rem;
+        line-height: 1.1;
     }
     .player {
-        width: 92%;
-        padding: 6px 12px 6px 6px;
+        width: 95%;
+        padding: 14px 16px 14px 12px;
         flex-direction: row;
         align-items: center;
         justify-content: space-between;
-        gap: 10px;
-        border-radius: 25px;
+        gap: 14px;
+        border-radius: 30px;
+        min-height: 84px;
     }
     .album-art-container {
         display: block;
-        width: 40px;
-        height: 40px;
+        width: 56px;
+        height: 56px;
         flex-shrink: 0;
     }
     .track-details {
@@ -717,60 +892,96 @@ body.mobile-bg {
         min-width: 0;
     }
     .track-title {
-        font-size: 0.82rem;
-        margin-bottom: 1px;
+        font-size: 0.98rem;
+        font-weight: 700;
+        margin-bottom: 3px;
     }
     .track-artist {
-        font-size: 0.65rem;
-        margin-bottom: 2px;
+        font-size: 0.75rem;
+        margin-bottom: 6px;
     }
     .time {
-        font-size: 0.6rem;
+        font-size: 0.68rem;
     }
     .progress-bar {
-        height: 4px;
+        height: 6px;
+        border-radius: 6px;
     }
     .player-controls {
-        gap: 8px;
+        gap: 12px;
         flex-shrink: 0;
     }
+    .mobile-horn-btn {
+        display: none !important;
+    }
     .player-controls .icon-btn svg {
-        width: 16px;
-        height: 16px;
+        width: 22px;
+        height: 22px;
     }
     .play-btn-main {
-        width: 34px;
-        height: 34px;
+        width: 46px;
+        height: 46px;
     }
     .play-btn-main svg {
-        width: 18px;
-        height: 18px;
+        width: 24px;
+        height: 24px;
     }
     .shortcuts {
         display: none;
     }
     .lang-toggle {
-        margin-top: 6px;
-        padding: 4px 10px;
-        font-size: 0.65rem;
+        margin-top: 8px;
+        padding: 5px 12px;
+        font-size: 0.7rem;
     }
     .diamond-meter-widget {
-        bottom: calc(100% - 6px);
+        bottom: calc(100% - 4px);
         right: 8px;
+        left: auto;
+    }
+    /* Horn pill on top-left of player on mobile moved cleanly upwards */
+    .mobile-horn-pill {
+        display: flex;
+        bottom: calc(100% + 12px);
+        left: 4px;
+        padding: 7px 14px;
+        min-height: 44px;
+        border-radius: 16px;
+        gap: 8px;
+    }
+    .mobile-horn-pill svg {
+        width: 18px;
+        height: 18px;
+    }
+    .mobile-horn-pill .horn-hi {
+        font-size: 0.76rem;
+    }
+    .mobile-horn-pill .horn-en {
+        font-size: 0.52rem;
+        letter-spacing: 0.8px;
     }
     .meter-outer-frame {
-        width: 105px;
-        padding: 3px 5px 5px 5px;
-        border-width: 3px;
+        width: 72px;
+        padding: 2px 4px 4px 4px;
+        border-width: 2px;
+        border-radius: 6px;
     }
     .fare-digits {
-        font-size: 0.95rem;
-    }
-    .sub-digits {
         font-size: 0.65rem;
     }
+    .sub-digits {
+        font-size: 0.44rem;
+    }
+    .meter-status-box {
+        font-size: 0.38rem;
+        padding: 1px 2px;
+    }
     .meter-brand {
-        font-size: 0.45rem;
+        font-size: 0.34rem;
+        letter-spacing: 0.8px;
+    }
+    .meter-flag-lever {
+        right: -16px;
     }
 }
 
@@ -827,43 +1038,7 @@ body.mobile-bg {
         letter-spacing: 2px;
         margin-bottom: 25px;
     }
-    .horn-btn {
-        padding: 4px 10px;
-        gap: 5px;
-    }
-    .horn-hi {
-        font-size: 0.65rem;
-    }
-    .horn-en {
-        font-size: 0.5rem;
-    }
-    .player {
-        width: 94%;
-        padding: 5px 10px 5px 5px;
-        gap: 8px;
-    }
-    .album-art-container {
-        width: 36px;
-        height: 36px;
-    }
-    .track-title {
-        font-size: 0.78rem;
-    }
-    .track-artist {
-        font-size: 0.62rem;
-        margin-bottom: 1px;
-    }
-    .player-controls {
-        gap: 6px;
-    }
-    .play-btn-main {
-        width: 32px;
-        height: 32px;
-    }
-    .play-btn-main svg {
-        width: 16px;
-        height: 16px;
-    }
+
 }
 
 /* Landscape Mode for Mobile Phones */
@@ -1289,10 +1464,10 @@ body.mobile-bg {
 }
 
 
-/* --- DIAMOND ELECTRIC RICKSHAW METER WIDGET --- */
+/* --- DIAMOND ELECTRIC RICKSHAW METER WIDGET (1/3 Smaller, Rock-Solid Hover) --- */
 .diamond-meter-widget {
     position: absolute;
-    bottom: calc(100% - 10px);
+    bottom: calc(100% - 8px);
     right: 25px;
     display: flex;
     flex-direction: column;
@@ -1300,48 +1475,49 @@ body.mobile-bg {
     cursor: pointer;
     user-select: none;
     z-index: 25;
-    transition: transform 0.2s ease;
 }
 
-.diamond-meter-widget:hover {
-    transform: scale(1.04);
+.diamond-meter-widget:hover .meter-outer-frame {
+    border-color: #ffb800;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.85), inset 0 0 10px rgba(0, 0, 0, 0.9);
 }
 
 .meter-outer-frame {
     position: relative;
-    width: 145px;
+    width: 98px;
     background: #18181c;
-    border: 4px solid #e09f0a;
-    border-radius: 12px;
-    padding: 6px 8px 8px 8px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.8), inset 0 0 15px rgba(0, 0, 0, 0.9);
+    border: 3px solid #e09f0a;
+    border-radius: 8px;
+    padding: 4px 6px 5px 6px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.8), inset 0 0 10px rgba(0, 0, 0, 0.9);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 /* 4 Corner Screws */
 .screw {
     position: absolute;
-    width: 8px;
-    height: 8px;
+    width: 6px;
+    height: 6px;
     border-radius: 50%;
     background: #666;
     color: #222;
-    font-size: 7px;
+    font-size: 5px;
     font-weight: 900;
-    line-height: 8px;
+    line-height: 6px;
     text-align: center;
-    box-shadow: inset 0 1px 2px rgba(255,255,255,0.4), 0 1px 2px rgba(0,0,0,0.8);
+    box-shadow: inset 0 1px 1px rgba(255,255,255,0.4), 0 1px 2px rgba(0,0,0,0.8);
 }
-.screw.top-l { top: 3px; left: 4px; }
-.screw.top-r { top: 3px; right: 4px; }
-.screw.bot-l { bottom: 3px; left: 4px; }
-.screw.bot-r { bottom: 3px; right: 4px; }
+.screw.top-l { top: 2px; left: 3px; }
+.screw.top-r { top: 2px; right: 3px; }
+.screw.bot-l { bottom: 2px; left: 3px; }
+.screw.bot-r { bottom: 2px; right: 3px; }
 
 .meter-brand {
     text-align: center;
     font-family: var(--font-sans);
-    font-size: 0.58rem;
+    font-size: 0.44rem;
     font-weight: 900;
-    letter-spacing: 1.5px;
+    letter-spacing: 1px;
     color: #aaaaaa;
     text-shadow: 0 1px 2px rgba(0,0,0,0.8);
     margin-bottom: 2px;
@@ -1351,15 +1527,15 @@ body.mobile-bg {
     width: 85%;
     height: 1px;
     background: rgba(255, 255, 255, 0.15);
-    margin: 0 auto 5px auto;
+    margin: 0 auto 3px auto;
 }
 
 .meter-lcd-screen {
     background: #070d08;
-    border: 2px solid #222;
-    border-radius: 6px;
-    padding: 5px 6px;
-    box-shadow: inset 0 0 10px rgba(0,0,0,0.9);
+    border: 1.5px solid #222;
+    border-radius: 4px;
+    padding: 3px 4px;
+    box-shadow: inset 0 0 8px rgba(0,0,0,0.9);
 }
 
 .meter-lcd-row {
@@ -1372,68 +1548,68 @@ body.mobile-bg {
     display: flex;
     flex-direction: column;
     font-family: var(--font-mono);
-    font-size: 0.5rem;
+    font-size: 0.38rem;
     font-weight: 700;
     color: #00e676;
-    letter-spacing: 0.5px;
+    letter-spacing: 0.3px;
     line-height: 1.1;
 }
 .lcd-labels .lbl-hi, .lcd-labels .lbl-gj {
-    font-size: 0.55rem;
+    font-size: 0.42rem;
 }
 
 .led-digits {
     font-family: 'Courier New', Courier, monospace;
     font-weight: 900;
     color: #ff3344;
-    text-shadow: 0 0 8px rgba(255, 51, 68, 0.9), 0 0 15px rgba(255, 51, 68, 0.4);
-    letter-spacing: 1.5px;
+    text-shadow: 0 0 6px rgba(255, 51, 68, 0.9), 0 0 10px rgba(255, 51, 68, 0.4);
+    letter-spacing: 1px;
 }
 
 .fare-digits {
-    font-size: 1.25rem;
+    font-size: 0.85rem;
 }
 
 .sub-digits {
-    font-size: 0.8rem;
+    font-size: 0.58rem;
 }
 
 .meter-screen-divider {
     border-bottom: 1px dashed rgba(0, 230, 118, 0.3);
-    margin: 4px 0;
+    margin: 3px 0;
 }
 
 .meter-lcd-row.mid-row {
-    margin-bottom: 5px;
+    margin-bottom: 3px;
 }
 
 .lcd-col {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 2px;
+    gap: 1px;
 }
 
 .meter-status-box {
     background: #000000;
     border: 1px solid #222;
-    border-radius: 4px;
-    padding: 2px 4px;
+    border-radius: 3px;
+    padding: 1px 3px;
     text-align: center;
     font-family: var(--font-mono);
-    font-size: 0.6rem;
+    font-size: 0.46rem;
     font-weight: 800;
     transition: all 0.3s ease;
 }
 
 .meter-status-box.vacant {
     color: #00e676;
-    text-shadow: 0 0 8px rgba(0, 230, 118, 0.8);
+    text-shadow: 0 0 6px rgba(0, 230, 118, 0.8);
 }
 
 .meter-status-box.hired {
     color: #ff3344;
-    text-shadow: 0 0 10px rgba(255, 51, 68, 0.9);
+    text-shadow: 0 0 8px rgba(255, 51, 68, 0.9);
     animation: pulseHired 1.2s infinite;
 }
 
@@ -1445,7 +1621,7 @@ body.mobile-bg {
 /* Red Flag Lever attached to right side */
 .meter-flag-lever {
     position: absolute;
-    right: -30px;
+    right: -20px;
     top: 50%;
     transform: translateY(-50%);
     display: flex;
@@ -1461,40 +1637,34 @@ body.mobile-bg {
 }
 
 .lever-rod {
-    width: 12px;
-    height: 5px;
+    width: 8px;
+    height: 3px;
     background: linear-gradient(to bottom, #ddd, #888, #bbb);
-    border-radius: 2px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.5);
+    border-radius: 1px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.5);
 }
 
 .meter-down-flag {
     background: #ff2222;
     border: 1px solid #ff6666;
-    border-radius: 4px;
-    padding: 3px 5px;
+    border-radius: 3px;
+    padding: 2px 3px;
     display: flex;
     flex-direction: column;
     align-items: center;
     color: #ffffff;
     font-family: var(--font-sans);
-    font-size: 0.48rem;
+    font-size: 0.36rem;
     font-weight: 900;
     line-height: 1;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.6);
+    box-shadow: 0 3px 8px rgba(0,0,0,0.6);
 }
 
 /* Metallic Mount Brackets & Nut-Bolts on Top Right of Player Bar */
-.diamond-meter-widget {
-    flex-direction: column;
-    margin-left: 0;
-    margin-right: 0;
-}
-
 .meter-mount-brackets {
     display: flex;
     justify-content: space-between;
-    width: 60%;
+    width: 55%;
     margin-top: -2px;
     position: relative;
     z-index: -1;
@@ -1507,17 +1677,17 @@ body.mobile-bg {
 }
 
 .metal-bar {
-    width: 6px;
-    height: 10px;
+    width: 4px;
+    height: 8px;
     background: linear-gradient(to right, #777, #fff, #555);
     box-shadow: 0 2px 4px rgba(0,0,0,0.6);
 }
 
 .nut-bolt {
-    width: 8px;
-    height: 8px;
+    width: 6px;
+    height: 6px;
     border-radius: 50%;
     background: radial-gradient(circle at 30% 30%, #fff, #aaa, #333);
     border: 1px solid #222;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.8);
+    box-shadow: 0 1px 2px rgba(0,0,0,0.8);
 }

@@ -340,6 +340,18 @@ function playHorn() {
 
 hornBtn.addEventListener('click', playHorn);
 
+// Mobile horn button inside player controls
+const mobileHornBtn = document.getElementById('mobile-horn-btn');
+if (mobileHornBtn) {
+    mobileHornBtn.addEventListener('click', playHorn);
+}
+
+// Mobile horn pill on top-left of player
+const mobileHornPill = document.getElementById('mobile-horn-pill');
+if (mobileHornPill) {
+    mobileHornPill.addEventListener('click', playHorn);
+}
+
 // --- Keyboard Shortcuts ---
 document.addEventListener('keydown', (e) => {
     if (e.code === 'Space') {
@@ -421,7 +433,7 @@ if (langToggle) {
         setTimeout(() => langToggle.classList.remove('switching'), 400);
 
         const hugeTitle = document.querySelector('.huge-title');
-        const hornHi = document.querySelector('.horn-hi');
+        const hornHiElements = document.querySelectorAll('.horn-hi');
         
         if (currentLang === 'gujarati') {
             currentLang = 'hindi';
@@ -432,9 +444,9 @@ if (langToggle) {
                 hugeTitle.textContent = 'ऑटो रिक्शा';
                 hugeTitle.classList.add('lang-hindi');
             }
-            if (hornHi) {
-                hornHi.textContent = 'हॉर्न ओके प्लीज';
-            }
+            hornHiElements.forEach(el => {
+                el.textContent = 'हॉर्न ओके प्लीज';
+            });
         } else {
             currentLang = 'gujarati';
             PLAYLIST_ID = GUJARATI_PLAYLIST;
@@ -444,9 +456,9 @@ if (langToggle) {
                 hugeTitle.textContent = 'ઓટો રિક્ષા';
                 hugeTitle.classList.remove('lang-hindi');
             }
-            if (hornHi) {
-                hornHi.textContent = 'હૉર્ન ઓકે પ્લીઝ';
-            }
+            hornHiElements.forEach(el => {
+                el.textContent = 'હૉર્ન ઓકે પ્લીઝ';
+            });
         }
         
         // Destroy old player and recreate with new playlist
@@ -700,3 +712,50 @@ function renderTrackList() {
         });
     }
 }
+
+// --- Rickshaw Shayari / Quotes Logic ---
+const RICKSHAW_QUOTES = [
+    "सबसे बड़ा रोग, क्या कहेंगे लोग",
+    "बुरी नज़र वाले तेरा मुंह काला",
+    "हँस मत पगली प्यार हो जायेगा",
+    "दम है तो क्रॉस कर वरना बर्दाश्त कर",
+    "१०० में से ९९ बेईमान, फिर भी मेरा भारत महान",
+    "आई कुडाँन्ट अफोर्ड मर्सिडीज, ठस ऑटो",
+    "લખ્યું છે નસીબમાં, મળશે રિક્ષામાં",
+    "ભાડું આપજો, આશીર્વાદ નહીં",
+    "તું મારી રાણી, બાકી દુનિયા પાણી",
+    "પ્રેમ કર્યો તો લવ સ્ટોરી, દગો કર્યો તો ક્રાઈમ સ્ટોરી",
+    "વટ છે એટલે રિક્ષા છે, રિક્ષા છે એટલે વટ છે"
+];
+
+let currentQuoteIndex = 6; // Start with "લખ્યું છે નસીબમાં, મળશે રિક્ષામાં"
+const quoteContainer = document.getElementById('rickshaw-quote-container');
+const quoteTextEl = document.getElementById('rickshaw-quote-text');
+const quoteRefreshBtn = document.getElementById('quote-refresh-btn');
+
+function changeQuote(e) {
+    if (e) e.stopPropagation();
+    
+    if (quoteRefreshBtn) {
+        quoteRefreshBtn.classList.add('spin');
+        setTimeout(() => quoteRefreshBtn.classList.remove('spin'), 400);
+    }
+    
+    if (quoteTextEl) {
+        quoteTextEl.classList.add('switching');
+        setTimeout(() => {
+            currentQuoteIndex = (currentQuoteIndex + 1) % RICKSHAW_QUOTES.length;
+            quoteTextEl.textContent = RICKSHAW_QUOTES[currentQuoteIndex];
+            quoteTextEl.classList.remove('switching');
+        }, 180);
+    }
+}
+
+if (quoteContainer) {
+    quoteContainer.addEventListener('click', changeQuote);
+}
+
+if (quoteRefreshBtn) {
+    quoteRefreshBtn.addEventListener('click', changeQuote);
+}
+
