@@ -25,10 +25,15 @@ body {
     color: var(--text-primary);
     font-family: var(--font-sans);
     height: 100vh;
+    height: 100dvh;
     overflow: hidden;
     position: relative;
     display: flex;
     flex-direction: column;
+}
+
+body.mobile-bg {
+    background-image: url('../5.png');
 }
 
 /* Overlays */
@@ -137,13 +142,13 @@ body {
 .profile-btn {
     background: rgba(0,0,0,0.5);
     border: 1px solid rgba(255,255,255,0.15);
-    border-radius: 20px;
-    padding: 6px 16px 6px 6px;
+    border-radius: 14px;
+    padding: 4px 12px 4px 4px;
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 8px;
     color: white;
-    font-size: 0.8rem;
+    font-size: 0.72rem;
     font-weight: 600;
     cursor: pointer;
     backdrop-filter: blur(5px);
@@ -166,14 +171,14 @@ body {
 }
 
 .avatar {
-    width: 28px;
-    height: 28px;
+    width: 22px;
+    height: 22px;
     background: var(--accent);
     border-radius: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 0.95rem;
+    font-size: 0.75rem;
     box-shadow: inset 0 -2px 5px rgba(0,0,0,0.3);
 }
 
@@ -193,22 +198,28 @@ body {
 }
 
 .track-info-top {
-    font-size: 0.85rem;
+    font-size: 0.9rem;
     letter-spacing: 6px;
-    font-weight: 700;
-    color: rgba(255,255,255,0.8);
-    margin-bottom: 50px;
-    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+    font-weight: 800;
+    color: #ffffff;
+    -webkit-text-stroke: 1.5px #000000;
+    paint-order: stroke fill;
+    margin-bottom: 55px;
+    text-shadow: 0 4px 15px rgba(0, 0, 0, 0.9);
 }
 
 .huge-title {
     font-family: var(--font-gujarati);
-    font-size: 12rem;
+    font-size: 8.5rem;
     font-weight: 900;
     line-height: 1;
     text-shadow: 0 10px 30px rgba(0,0,0,0.8);
     color: #fff;
     margin-bottom: 20px;
+}
+
+.huge-title.lang-hindi {
+    font-size: 6.8rem;
 }
 
 .center-badge {
@@ -226,11 +237,11 @@ body {
 .horn-btn {
     background: rgba(0, 0, 0, 0.7);
     border: 1px solid rgba(255,255,255,0.1);
-    border-radius: 30px;
-    padding: 10px 24px;
+    border-radius: 20px;
+    padding: 5px 14px;
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 8px;
     color: white;
     cursor: pointer;
     backdrop-filter: blur(10px);
@@ -248,12 +259,12 @@ body {
 
 .horn-hi {
     font-family: var(--font-gujarati);
-    font-size: 1rem;
+    font-size: 0.78rem;
     font-weight: 700;
 }
 
 .horn-en {
-    font-size: 0.65rem;
+    font-size: 0.55rem;
     font-weight: 700;
     letter-spacing: 1px;
     color: var(--text-muted);
@@ -262,7 +273,7 @@ body {
 /* Bottom Player */
 .player-container {
     position: absolute;
-    bottom: 40px;
+    bottom: 18px;
     left: 0;
     width: 100%;
     display: flex;
@@ -281,22 +292,22 @@ body {
 .player {
     background: var(--player-bg);
     backdrop-filter: blur(15px);
-    border-radius: 40px;
-    padding: 15px 30px 15px 15px;
+    border-radius: 24px;
+    padding: 8px 22px 8px 8px;
     display: flex;
     align-items: center;
-    gap: 25px;
-    width: 800px;
-    max-width: 90%;
+    gap: 18px;
+    width: 720px;
+    max-width: 88%;
     border: 1px solid rgba(255,255,255,0.05);
     box-shadow: 0 20px 40px rgba(0,0,0,0.5);
-    margin-bottom: 20px;
+    margin-bottom: 8px;
 }
 
 .album-art-container {
     position: relative;
-    width: 70px;
-    height: 70px;
+    width: 44px;
+    height: 44px;
 }
 
 .album-art {
@@ -335,18 +346,18 @@ body {
 }
 
 .track-title {
-    font-size: 1.1rem;
+    font-size: 0.9rem;
     font-weight: 600;
-    margin-bottom: 4px;
+    margin-bottom: 2px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
 }
 
 .track-artist {
-    font-size: 0.85rem;
+    font-size: 0.72rem;
     color: var(--text-muted);
-    margin-bottom: 12px;
+    margin-bottom: 6px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -453,8 +464,8 @@ body {
 }
 
 .play-btn-main {
-    width: 48px;
-    height: 48px;
+    width: 34px;
+    height: 34px;
     border-radius: 50%;
     background: white;
     border: none;
@@ -505,17 +516,17 @@ body {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 10px;
+    gap: 8px;
     width: auto;
     max-width: 90%;
-    margin: 12px auto 0 auto;
-    padding: 8px 18px;
+    margin: 8px auto 0 auto;
+    padding: 5px 14px;
     background: rgba(0, 0, 0, 0.4);
     backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 184, 0, 0.3);
-    border-radius: 20px;
+    border-radius: 16px;
     color: rgba(255, 255, 255, 0.85);
-    font-size: 0.78rem;
+    font-size: 0.7rem;
     font-weight: 600;
     cursor: pointer;
     transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
@@ -547,47 +558,305 @@ body {
 }
 
 .lang-indicator {
-    font-size: 0.65rem;
+    font-size: 0.58rem;
     font-weight: 800;
     letter-spacing: 1px;
     text-transform: uppercase;
-    padding: 3px 8px;
-    border-radius: 6px;
+    padding: 2px 6px;
+    border-radius: 4px;
     background: rgba(255, 184, 0, 0.2);
     color: #ffb800;
     white-space: nowrap;
     flex-shrink: 0;
 }
 
-/* Responsive */
-@media (max-width: 900px) {
+/* Responsive Design System */
+@media (max-width: 1024px) {
     .huge-title {
-        font-size: 8rem;
+        font-size: 8.5rem;
+    }
+    .huge-title.lang-hindi {
+        font-size: 7rem;
+    }
+    .track-info-top {
+        font-size: 0.8rem;
+        letter-spacing: 4px;
+        margin-bottom: 45px;
     }
     .player {
-        width: 95%;
-        padding: 15px;
+        width: 90%;
+        gap: 18px;
+    }
+}
+
+@media (max-width: 768px) {
+    body {
+        background-image: url('../5.png');
+    }
+    .top-header {
+        padding: 14px 18px;
+    }
+    .header-titles h1 {
+        font-size: 1.25rem;
+    }
+    .header-titles p {
+        font-size: 0.65rem;
+        letter-spacing: 1px;
+    }
+    .logo-icon {
+        width: 38px;
+        height: 38px;
+    }
+    .passengers {
+        font-size: 0.65rem;
+        margin-bottom: 6px;
+    }
+    .profile-btn {
+        padding: 3px 10px 3px 3px;
+        font-size: 0.68rem;
+    }
+    .avatar {
+        width: 20px;
+        height: 20px;
+        font-size: 0.75rem;
+    }
+    .meter-box {
+        width: 140px;
+        padding: 8px;
+        gap: 6px;
+        top: 40px;
+        border-radius: 10px;
+    }
+    .meter-title {
+        font-size: 0.55rem;
+        margin-bottom: 2px;
+        padding: 2px 6px;
+    }
+    .meter-display {
+        padding: 4px 8px;
+        margin-bottom: 4px;
+    }
+    .meter-display .currency {
+        font-size: 0.65rem;
+    }
+    .meter-display .amount {
+        font-size: 0.85rem;
+    }
+    .social-btn {
+        padding: 4px 6px;
+        font-size: 0.6rem;
+        gap: 4px;
+    }
+    .social-btn svg {
+        width: 12px;
+        height: 12px;
+    }
+    .center-content {
+        top: 38%;
+    }
+    .huge-title {
+        font-size: 7rem;
+    }
+    .huge-title.lang-hindi {
+        font-size: 5.8rem;
+    }
+    .track-info-top {
+        font-size: 0.75rem;
+        letter-spacing: 3px;
+        margin-bottom: 35px;
+    }
+    .player-container {
+        bottom: 12px;
+    }
+    .player-extras {
+        margin-bottom: 8px;
+    }
+    .horn-btn {
+        padding: 5px 12px;
+        gap: 6px;
+        border-radius: 16px;
+    }
+    .horn-btn svg {
+        width: 14px;
+        height: 14px;
+    }
+    .horn-hi {
+        font-size: 0.7rem;
+    }
+    .horn-en {
+        font-size: 0.55rem;
+    }
+    .player {
+        width: 88%;
+        padding: 10px 14px;
         flex-direction: column;
+        gap: 8px;
         border-radius: 20px;
     }
     .album-art-container {
         display: none;
     }
+    .track-details {
+        width: 100%;
+        text-align: center;
+    }
+    .track-title {
+        font-size: 0.9rem;
+        margin-bottom: 2px;
+    }
+    .track-artist {
+        font-size: 0.72rem;
+        margin-bottom: 6px;
+    }
+    .time {
+        font-size: 0.68rem;
+    }
+    .progress-bar {
+        height: 3px;
+    }
+    .player-controls {
+        gap: 14px;
+    }
+    .player-controls .icon-btn svg {
+        width: 18px;
+        height: 18px;
+    }
+    .play-btn-main {
+        width: 38px;
+        height: 38px;
+    }
+    .play-btn-main svg {
+        width: 22px;
+        height: 22px;
+    }
     .shortcuts {
         display: none;
     }
+    .lang-toggle {
+        margin-top: 6px;
+        padding: 5px 12px;
+        font-size: 0.68rem;
+    }
 }
-@media (max-width: 600px) {
+
+@media (max-width: 480px) {
+    .top-header {
+        padding: 10px 12px;
+    }
+    .header-titles p {
+        display: block;
+        font-size: 0.55rem;
+        letter-spacing: 0.5px;
+        opacity: 0.85;
+    }
+    .profile-btn {
+        padding: 2px 8px 2px 2px;
+        font-size: 0.62rem;
+    }
+    .avatar {
+        width: 18px;
+        height: 18px;
+        font-size: 0.7rem;
+    }
+    .meter-box {
+        width: 120px;
+        padding: 6px;
+        gap: 4px;
+        top: 34px;
+        border-radius: 8px;
+    }
+    .meter-display {
+        padding: 3px 6px;
+        margin-bottom: 3px;
+    }
+    .meter-display .amount {
+        font-size: 0.75rem;
+    }
+    .social-btn {
+        padding: 3px 5px;
+        font-size: 0.55rem;
+        gap: 3px;
+    }
+    .social-btn svg {
+        width: 10px;
+        height: 10px;
+    }
     .huge-title {
         font-size: 5rem;
     }
-    .top-header {
-        padding: 20px;
-        flex-direction: column;
-        gap: 20px;
+    .huge-title.lang-hindi {
+        font-size: 4.2rem;
     }
-    .header-right {
-        align-items: flex-start;
+    .track-info-top {
+        font-size: 0.7rem;
+        letter-spacing: 2px;
+        margin-bottom: 25px;
+    }
+    .horn-btn {
+        padding: 4px 10px;
+        gap: 5px;
+    }
+    .horn-hi {
+        font-size: 0.65rem;
+    }
+    .horn-en {
+        font-size: 0.5rem;
+    }
+    .player {
+        width: 90%;
+        padding: 8px 12px;
+    }
+    .track-title {
+        font-size: 0.85rem;
+    }
+    .track-artist {
+        font-size: 0.68rem;
+        margin-bottom: 4px;
+    }
+    .player-controls {
+        gap: 10px;
+    }
+    .play-btn-main {
+        width: 34px;
+        height: 34px;
+    }
+    .play-btn-main svg {
+        width: 18px;
+        height: 18px;
+    }
+}
+
+/* Landscape Mode for Mobile Phones */
+@media (max-height: 500px) and (orientation: landscape) {
+    .top-header {
+        padding: 10px 20px;
+    }
+    .center-content {
+        top: 30%;
+    }
+    .huge-title {
+        font-size: 3.5rem;
+        margin-bottom: 5px;
+    }
+    .track-info-top {
+        margin-bottom: 10px;
+    }
+    .player-container {
+        bottom: 8px;
+    }
+    .player-extras {
+        margin-bottom: 6px;
+    }
+    .player {
+        padding: 8px 16px;
+        gap: 10px;
+    }
+    .shortcuts {
+        display: none;
+    }
+    .lang-toggle {
+        margin-top: 4px;
+        padding: 4px 10px;
     }
 }
 
@@ -770,17 +1039,17 @@ body {
 /* Meter Box Dropdown */
 .meter-box {
     position: absolute;
-    top: 65px;
+    top: 44px;
     right: 0;
-    width: 220px;
+    width: 145px;
     background: #111;
-    border: 3px solid var(--accent);
+    border: 2px solid var(--accent);
     border-radius: 8px;
-    padding: 15px;
+    padding: 8px;
     box-shadow: 0 15px 40px rgba(0,0,0,0.9), 0 0 20px rgba(255, 184, 0, 0.15);
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 6px;
     
     opacity: 0;
     visibility: hidden;

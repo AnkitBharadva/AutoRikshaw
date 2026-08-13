@@ -1,3 +1,13 @@
+// --- WhatsApp & Mobile Browser Background Detection ---
+const isWhatsAppBrowser = /WhatsApp/i.test(navigator.userAgent);
+const isMobileUA = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+
+if (isWhatsAppBrowser || isMobileUA) {
+    document.addEventListener('DOMContentLoaded', () => {
+        document.body.classList.add('mobile-bg');
+    });
+}
+
 // --- YouTube Playlist Integration ---
 const GUJARATI_PLAYLIST = 'PLUzteH3czVO7pn8x3c70DQVJw36TgDLgM';
 const HINDI_PLAYLIST = 'PL0umg_TNpoZTTdZVIi5tfX69pRmoMFGna';
@@ -268,6 +278,39 @@ function updateClock() {
 setInterval(updateClock, 1000);
 updateClock();
 
+// --- Real-time Passengers Counter (Vercel Ready) ---
+const passengersEl = document.getElementById('passengers-count') || document.querySelector('.passengers');
+
+async function initPassengerCounter() {
+    if (!passengersEl) return;
+    
+    const namespace = "auto-rikshaw";
+    const key = "passengers-count";
+    
+    try {
+        let count = 1;
+        const hasVisited = sessionStorage.getItem('rickshaw_passenger_logged');
+        
+        if (!hasVisited) {
+            sessionStorage.setItem('rickshaw_passenger_logged', 'true');
+            const res = await fetch(`https://api.counterapi.dev/v1/${namespace}/${key}/up`);
+            const data = await res.json();
+            if (data && typeof data.count === 'number') count = data.count;
+        } else {
+            const res = await fetch(`https://api.counterapi.dev/v1/${namespace}/${key}`);
+            const data = await res.json();
+            if (data && typeof data.count === 'number') count = data.count;
+        }
+
+        passengersEl.innerHTML = `&bull; ${count} PASSENGER${count === 1 ? '' : 'S'}`;
+    } catch (err) {
+        console.log("Passenger counter fallback:", err);
+        passengersEl.innerHTML = `&bull; 1 PASSENGER`;
+    }
+}
+
+initPassengerCounter();
+
 // --- Language Toggle ---
 const langToggle = document.getElementById('lang-toggle');
 const langText = document.getElementById('lang-text');
@@ -284,11 +327,11 @@ if (langToggle) {
         if (currentLang === 'gujarati') {
             currentLang = 'hindi';
             PLAYLIST_ID = HINDI_PLAYLIST;
-            langText.textContent = 'કંઈક ગુજરાતી વાગડ ને વાલા !';
+            langText.textContent = 'કંઈક ગુજરાતી વગાડ ને વાલા !';
             langIndicator.textContent = 'हिंदी';
             if (hugeTitle) {
                 hugeTitle.textContent = 'ऑटो रिक्शा';
-                hugeTitle.style.fontSize = '9.5rem';
+                hugeTitle.classList.add('lang-hindi');
             }
             if (hornHi) {
                 hornHi.textContent = 'हॉर्न ओके प्लीज';
@@ -300,7 +343,7 @@ if (langToggle) {
             langIndicator.textContent = 'ગુજરાતી';
             if (hugeTitle) {
                 hugeTitle.textContent = 'ઓટો રિક્ષા';
-                hugeTitle.style.fontSize = '';
+                hugeTitle.classList.remove('lang-hindi');
             }
             if (hornHi) {
                 hornHi.textContent = 'હૉર્ન ઓકે પ્લીઝ';
