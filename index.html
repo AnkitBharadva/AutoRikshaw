@@ -194,56 +194,57 @@
                 </div>
             </div>
 
-            <!-- Top Row: Album Art, Full Width Song/Creator Name, and Playback Controls -->
-            <div class="player-top-row">
-                <div class="album-art-container">
-                    <div class="album-art" style="background-image: none; background-color: rgba(255, 184, 0, 0.1);"></div>
-                    <div class="vinyl-hole"></div>
-                </div>
-                
-                <div class="track-details">
+            <!-- Album Art -->
+            <div class="album-art-container">
+                <div class="album-art" style="background-image: none; background-color: rgba(255, 184, 0, 0.1);"></div>
+                <div class="vinyl-hole"></div>
+            </div>
+            
+            <!-- Track Details (Stacked 2 sleek bars on Desktop: Title/Artist & Timeline) -->
+            <div class="track-details">
+                <div class="track-info-text">
                     <h3 class="track-title">Loading...</h3>
                     <p class="track-artist">Gujarati Playlist</p>
                 </div>
-
-                <div class="player-controls">
-                    <!-- Shuffle -->
-                    <button class="icon-btn shuffle-btn active" id="shuffle-btn" style="color: #ffb800;" title="Toggle Shuffle">
-                        <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M10.59 9.17L5.41 4 4 5.41l5.17 5.17 1.42-1.41zM14.5 4l2.04 2.04L4 18.59 5.41 20 17.96 7.46 20 9.5V4h-5.5zm.33 9.41l-1.41 1.41 3.13 3.13L14.5 20H20v-5.5l-2.04 2.04-3.13-3.13z"/></svg>
-                    </button>
-                    <!-- Prev -->
-                    <button class="icon-btn" title="Previous Track">
-                        <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/></svg>
-                    </button>
-                    <!-- Play/Pause -->
-                    <button class="play-btn-main" title="Play / Pause">
-                        <svg viewBox="0 0 24 24" width="22" height="22" fill="#111"><path d="M8 5v14l11-7z"/></svg>
-                    </button>
-                    <!-- Next -->
-                    <button class="icon-btn" title="Next Track">
-                        <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"/></svg>
-                    </button>
-                    <!-- Playlist Menu -->
-                    <button class="icon-btn playlist-btn" title="View Playlist">
-                        <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M4 10h12v2H4zm0-4h12v2H4zm0 8h8v2H4zm10 0v6l5-3z"/></svg>
-                    </button>
-                    <!-- Volume -->
-                    <div class="volume-container">
-                        <button class="icon-btn volume-btn" title="Volume">
-                            <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/></svg>
-                        </button>
-                        <input type="range" class="volume-slider" id="volume-slider" min="0" max="100" value="100">
+                
+                <div class="timeline">
+                    <span class="time current-time">0:00</span>
+                    <div class="progress-bar">
+                        <div class="progress" style="width: 0%;"></div>
                     </div>
+                    <span class="time total-time">0:00</span>
                 </div>
             </div>
 
-            <!-- Bottom Row: Full Width Progress Bar Timeline -->
-            <div class="timeline">
-                <span class="time current-time">0:00</span>
-                <div class="progress-bar">
-                    <div class="progress" style="width: 0%;"></div>
+            <!-- Playback Control Buttons -->
+            <div class="player-controls">
+                <!-- Shuffle -->
+                <button class="icon-btn shuffle-btn active" id="shuffle-btn" style="color: #ffb800;" title="Toggle Shuffle">
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M10.59 9.17L5.41 4 4 5.41l5.17 5.17 1.42-1.41zM14.5 4l2.04 2.04L4 18.59 5.41 20 17.96 7.46 20 9.5V4h-5.5zm.33 9.41l-1.41 1.41 3.13 3.13L14.5 20H20v-5.5l-2.04 2.04-3.13-3.13z"/></svg>
+                </button>
+                <!-- Prev -->
+                <button class="icon-btn prev-btn" id="prev-btn" title="Previous Track">
+                    <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/></svg>
+                </button>
+                <!-- Play/Pause -->
+                <button class="play-btn-main" id="play-btn" title="Play / Pause">
+                    <svg viewBox="0 0 24 24" width="24" height="24" fill="#111"><path d="M8 5v14l11-7z"/></svg>
+                </button>
+                <!-- Next -->
+                <button class="icon-btn next-btn" id="next-btn" title="Next Track">
+                    <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"/></svg>
+                </button>
+                <!-- Playlist Menu -->
+                <button class="icon-btn playlist-btn" id="playlist-btn" title="View Playlist">
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M4 10h12v2H4zm0-4h12v2H4zm0 8h8v2H4zm10 0v6l5-3z"/></svg>
+                </button>
+                <!-- Volume -->
+                <div class="volume-container">
+                    <button class="icon-btn volume-btn" id="volume-btn" title="Volume">
+                        <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/></svg>
+                    </button>
+                    <input type="range" class="volume-slider" id="volume-slider" min="0" max="100" value="100">
                 </div>
-                <span class="time total-time">0:00</span>
             </div>
         </div>
 
