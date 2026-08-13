@@ -290,6 +290,7 @@ body.mobile-bg {
 }
 
 .player {
+    position: relative;
     background: var(--player-bg);
     backdrop-filter: blur(15px);
     border-radius: 24px;
@@ -396,24 +397,22 @@ body.mobile-bg {
 }
 
 .progress::after {
-    content: '';
+    content: '🛺';
     position: absolute;
-    right: -4px;
+    right: -10px;
     top: 50%;
-    transform: translateY(-50%);
-    width: 8px;
-    height: 8px;
-    background: #ffffff;
-    border: 1.5px solid #ffb800;
-    border-radius: 50%;
+    transform: translateY(-50%) scaleX(-1);
+    font-size: 1rem;
+    line-height: 1;
     opacity: 1;
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.8);
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.8));
     transition: transform 0.15s ease;
+    pointer-events: none;
 }
 
 .progress-bar:hover .progress::after,
 .progress-bar:active .progress::after {
-    transform: translateY(-50%) scale(1.3);
+    transform: translateY(-50%) scaleX(-1) scale(1.3);
 }
 
 .player-controls {
@@ -676,7 +675,11 @@ body.mobile-bg {
         bottom: 12px;
     }
     .player-extras {
-        margin-bottom: 8px;
+        width: 92%;
+        margin-bottom: -4px;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: flex-end;
     }
     .horn-btn {
         padding: 5px 12px;
@@ -750,6 +753,24 @@ body.mobile-bg {
         margin-top: 6px;
         padding: 4px 10px;
         font-size: 0.65rem;
+    }
+    .diamond-meter-widget {
+        bottom: calc(100% - 6px);
+        right: 8px;
+    }
+    .meter-outer-frame {
+        width: 105px;
+        padding: 3px 5px 5px 5px;
+        border-width: 3px;
+    }
+    .fare-digits {
+        font-size: 0.95rem;
+    }
+    .sub-digits {
+        font-size: 0.65rem;
+    }
+    .meter-brand {
+        font-size: 0.45rem;
     }
 }
 
@@ -1055,124 +1076,448 @@ body.mobile-bg {
     text-overflow: ellipsis;
 }
 
-/* Meter Box Dropdown */
+/* Driver's License Card Dropdown */
 .meter-box {
     position: absolute;
-    top: 44px;
+    top: 48px;
     right: 0;
-    width: 145px;
-    background: #111;
-    border: 2px solid var(--accent);
-    border-radius: 8px;
-    padding: 8px;
-    box-shadow: 0 15px 40px rgba(0,0,0,0.9), 0 0 20px rgba(255, 184, 0, 0.15);
+    width: 250px;
+    background: linear-gradient(135deg, #1c1810 0%, #0d0c0a 100%);
+    border: 2px solid #ffb800;
+    border-radius: 14px;
+    padding: 14px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.95), 0 0 25px rgba(255, 184, 0, 0.25);
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    gap: 8px;
     
     opacity: 0;
     visibility: hidden;
-    transform: translateY(-15px) scale(0.95);
+    transform: translateY(-15px) scale(0.92);
     transform-origin: top right;
-    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transition: all 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     z-index: 100;
+    pointer-events: none;
 }
 
 .meter-box.active {
     opacity: 1;
     visibility: visible;
     transform: translateY(0) scale(1);
+    pointer-events: auto;
 }
 
-.meter-header {
-    display: flex;
-    justify-content: space-between;
-    font-family: var(--font-mono);
-    font-size: 0.75rem;
-    color: #888;
-    letter-spacing: 2px;
-}
-
-.meter-status {
-    color: #ff5555;
-    font-weight: bold;
-    animation: blinkMeter 1s infinite;
-}
-
-@keyframes blinkMeter { 
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.3; } 
-}
-
-.meter-display {
-    background: #0a0a0a;
-    border: 2px inset #222;
-    padding: 12px;
-    border-radius: 6px;
-    text-align: right;
-    font-family: var(--font-mono);
-    color: #ff3333;
-    font-size: 1.6rem;
-    font-weight: bold;
-    text-shadow: 0 0 8px rgba(255, 51, 51, 0.6);
+/* Top Strip */
+.license-top-strip {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    background: linear-gradient(90deg, #ffb800 0%, #ff8800 100%);
+    margin: -14px -14px 10px -14px;
+    padding: 5px 12px;
+    border-top-left-radius: 11px;
+    border-top-right-radius: 11px;
 }
 
-.meter-display .currency {
-    color: #444;
-    font-size: 1.2rem;
-    text-shadow: none;
+.govt-tag {
+    font-family: var(--font-mono);
+    font-size: 0.55rem;
+    font-weight: 900;
+    color: #111111;
+    letter-spacing: 1px;
 }
 
+.license-badge {
+    font-family: var(--font-sans);
+    font-size: 0.5rem;
+    font-weight: 900;
+    background: #000000;
+    color: #00e676;
+    padding: 2px 6px;
+    border-radius: 4px;
+    letter-spacing: 1px;
+}
+
+.license-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px dashed rgba(255, 184, 0, 0.4);
+    padding-bottom: 6px;
+    margin-bottom: 8px;
+}
+
+.license-title {
+    font-family: var(--font-gujarati);
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #ffffff;
+    text-shadow: 0 0 8px rgba(255, 184, 0, 0.5);
+}
+
+.license-status {
+    font-size: 0.6rem;
+    font-weight: 900;
+    letter-spacing: 0.5px;
+    background: rgba(0, 230, 118, 0.2);
+    border: 1px solid #00e676;
+    color: #00e676;
+    padding: 2px 8px;
+    border-radius: 12px;
+    box-shadow: 0 0 10px rgba(0, 230, 118, 0.3);
+}
+
+.license-body {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 6px;
+    background: rgba(255, 184, 0, 0.05);
+    border: 1px solid rgba(255, 184, 0, 0.2);
+    border-radius: 10px;
+    padding: 8px;
+}
+
+.license-avatar-big {
+    width: 44px;
+    height: 44px;
+    background: linear-gradient(135deg, rgba(255, 184, 0, 0.3), rgba(255, 136, 0, 0.2));
+    border: 2px solid #ffb800;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.4rem;
+    flex-shrink: 0;
+    box-shadow: 0 0 12px rgba(255, 184, 0, 0.3);
+}
+
+.license-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.driver-name {
+    font-size: 0.92rem;
+    font-weight: 800;
+    color: #ffffff;
+    line-height: 1.2;
+    letter-spacing: 0.5px;
+}
+
+.driver-role {
+    font-size: 0.65rem;
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 3px;
+}
+
+.permit-no {
+    font-size: 0.62rem;
+    font-family: var(--font-mono);
+    font-weight: 700;
+    color: #ffb800;
+    letter-spacing: 1px;
+    background: rgba(0,0,0,0.6);
+    padding: 2px 6px;
+    border-radius: 4px;
+    display: inline-block;
+}
+
+/* Glassy Neon Social Links */
 .social-links {
     display: flex;
-    flex-direction: column;
-    gap: 10px;
-    margin-top: 5px;
+    gap: 8px;
+    margin-top: 4px;
 }
 
 .social-btn {
+    flex: 1;
     text-decoration: none;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 8px;
-    padding: 10px;
-    border-radius: 6px;
-    font-size: 0.8rem;
-    font-weight: 700;
-    color: white;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    transition: all 0.2s;
-    border: 1px solid transparent;
+    gap: 6px;
+    padding: 8px 10px;
+    border-radius: 10px;
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     cursor: pointer;
     pointer-events: auto;
+    backdrop-filter: blur(10px);
 }
 
+/* Glassy Electric Blue LinkedIn Pill */
 .li-btn {
-    background: #0077b5;
+    background: linear-gradient(135deg, rgba(0, 119, 181, 0.25) 0%, rgba(0, 119, 181, 0.08) 100%);
+    border: 1px solid rgba(0, 162, 255, 0.4);
+    color: #38b6ff;
+    box-shadow: 0 4px 15px rgba(0, 119, 181, 0.15);
 }
 
+.li-btn:hover {
+    background: linear-gradient(135deg, rgba(0, 162, 255, 0.45) 0%, rgba(0, 119, 181, 0.25) 100%);
+    border-color: #38b6ff;
+    color: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 162, 255, 0.35);
+}
+
+/* Glassy Sunset Gradient Instagram Pill */
 .ig-btn {
-    background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+    background: linear-gradient(135deg, rgba(225, 48, 108, 0.25) 0%, rgba(245, 96, 64, 0.08) 100%);
+    border: 1px solid rgba(255, 64, 129, 0.4);
+    color: #ff5252;
+    box-shadow: 0 4px 15px rgba(225, 48, 108, 0.15);
 }
 
-.social-btn:hover {
-    transform: scale(1.03);
-    filter: brightness(1.15);
-    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+.ig-btn:hover {
+    background: linear-gradient(135deg, rgba(240, 148, 51, 0.45) 0%, rgba(188, 24, 136, 0.35) 100%);
+    border-color: #ff4081;
+    color: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(236, 64, 122, 0.35);
 }
 
-.track-item:hover {
-    background: rgba(255,255,255,0.05);
-    color: white;
+.social-btn svg {
+    transition: transform 0.3s ease;
 }
 
-.track-item.active {
-    background: rgba(255, 184, 0, 0.1);
-    color: var(--accent);
-    border-left: 4px solid var(--accent);
+.social-btn:hover svg {
+    transform: scale(1.15) rotate(-5deg);
+}
+
+
+/* --- DIAMOND ELECTRIC RICKSHAW METER WIDGET --- */
+.diamond-meter-widget {
+    position: absolute;
+    bottom: calc(100% - 10px);
+    right: 25px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    user-select: none;
+    z-index: 25;
+    transition: transform 0.2s ease;
+}
+
+.diamond-meter-widget:hover {
+    transform: scale(1.04);
+}
+
+.meter-outer-frame {
+    position: relative;
+    width: 145px;
+    background: #18181c;
+    border: 4px solid #e09f0a;
+    border-radius: 12px;
+    padding: 6px 8px 8px 8px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.8), inset 0 0 15px rgba(0, 0, 0, 0.9);
+}
+
+/* 4 Corner Screws */
+.screw {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #666;
+    color: #222;
+    font-size: 7px;
+    font-weight: 900;
+    line-height: 8px;
+    text-align: center;
+    box-shadow: inset 0 1px 2px rgba(255,255,255,0.4), 0 1px 2px rgba(0,0,0,0.8);
+}
+.screw.top-l { top: 3px; left: 4px; }
+.screw.top-r { top: 3px; right: 4px; }
+.screw.bot-l { bottom: 3px; left: 4px; }
+.screw.bot-r { bottom: 3px; right: 4px; }
+
+.meter-brand {
+    text-align: center;
+    font-family: var(--font-sans);
+    font-size: 0.58rem;
+    font-weight: 900;
+    letter-spacing: 1.5px;
+    color: #aaaaaa;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.8);
+    margin-bottom: 2px;
+}
+
+.meter-brand-line {
+    width: 85%;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.15);
+    margin: 0 auto 5px auto;
+}
+
+.meter-lcd-screen {
+    background: #070d08;
+    border: 2px solid #222;
+    border-radius: 6px;
+    padding: 5px 6px;
+    box-shadow: inset 0 0 10px rgba(0,0,0,0.9);
+}
+
+.meter-lcd-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.lcd-labels {
+    display: flex;
+    flex-direction: column;
+    font-family: var(--font-mono);
+    font-size: 0.5rem;
+    font-weight: 700;
+    color: #00e676;
+    letter-spacing: 0.5px;
+    line-height: 1.1;
+}
+.lcd-labels .lbl-hi, .lcd-labels .lbl-gj {
+    font-size: 0.55rem;
+}
+
+.led-digits {
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: 900;
+    color: #ff3344;
+    text-shadow: 0 0 8px rgba(255, 51, 68, 0.9), 0 0 15px rgba(255, 51, 68, 0.4);
+    letter-spacing: 1.5px;
+}
+
+.fare-digits {
+    font-size: 1.25rem;
+}
+
+.sub-digits {
+    font-size: 0.8rem;
+}
+
+.meter-screen-divider {
+    border-bottom: 1px dashed rgba(0, 230, 118, 0.3);
+    margin: 4px 0;
+}
+
+.meter-lcd-row.mid-row {
+    margin-bottom: 5px;
+}
+
+.lcd-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+}
+
+.meter-status-box {
+    background: #000000;
+    border: 1px solid #222;
+    border-radius: 4px;
+    padding: 2px 4px;
+    text-align: center;
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    font-weight: 800;
+    transition: all 0.3s ease;
+}
+
+.meter-status-box.vacant {
+    color: #00e676;
+    text-shadow: 0 0 8px rgba(0, 230, 118, 0.8);
+}
+
+.meter-status-box.hired {
+    color: #ff3344;
+    text-shadow: 0 0 10px rgba(255, 51, 68, 0.9);
+    animation: pulseHired 1.2s infinite;
+}
+
+@keyframes pulseHired {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.6; }
+}
+
+/* Red Flag Lever attached to right side */
+.meter-flag-lever {
+    position: absolute;
+    right: -30px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transform-origin: left center;
+    z-index: 5;
+}
+
+.meter-flag-lever.hired {
+    transform: translateY(-50%) rotate(90deg);
+}
+
+.lever-rod {
+    width: 12px;
+    height: 5px;
+    background: linear-gradient(to bottom, #ddd, #888, #bbb);
+    border-radius: 2px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.5);
+}
+
+.meter-down-flag {
+    background: #ff2222;
+    border: 1px solid #ff6666;
+    border-radius: 4px;
+    padding: 3px 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #ffffff;
+    font-family: var(--font-sans);
+    font-size: 0.48rem;
+    font-weight: 900;
+    line-height: 1;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.6);
+}
+
+/* Metallic Mount Brackets & Nut-Bolts on Top Right of Player Bar */
+.diamond-meter-widget {
+    flex-direction: column;
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.meter-mount-brackets {
+    display: flex;
+    justify-content: space-between;
+    width: 60%;
+    margin-top: -2px;
+    position: relative;
+    z-index: -1;
+}
+
+.mount-leg {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.metal-bar {
+    width: 6px;
+    height: 10px;
+    background: linear-gradient(to right, #777, #fff, #555);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.6);
+}
+
+.nut-bolt {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%, #fff, #aaa, #333);
+    border: 1px solid #222;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.8);
 }

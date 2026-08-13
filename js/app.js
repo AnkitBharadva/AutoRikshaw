@@ -519,6 +519,91 @@ if (profileBtnTop && meterBox) {
     });
 }
 
+// --- DIAMOND ELECTRIC RICKSHAW METER ENGINE ---
+const diamondMeterWidget = document.getElementById('diamond-meter-widget');
+const meterFlagLever = document.getElementById('meter-flag-lever');
+const meterFareVal = document.getElementById('meter-fare-val');
+const meterDistVal = document.getElementById('meter-dist-val');
+const meterWaitVal = document.getElementById('meter-wait-val');
+const meterStatusBox = document.getElementById('meter-status-box');
+const meterStatusText = document.getElementById('meter-status-text');
+
+let isMeterHired = false;
+let meterTimer = null;
+let meterElapsedSeconds = 0;
+let baseFare = 23.00;
+
+// --- Mechanical Meter Lever Sound (Plays meter sound.mp3) ---
+const meterAudio = new Audio('meter sound.mp3');
+
+function playMeterSound() {
+    try {
+        meterAudio.currentTime = 0;
+        meterAudio.play().catch(err => {
+            console.log("Audio play prevented:", err);
+        });
+    } catch (e) {
+        console.error("Meter Audio Error:", e);
+    }
+}
+
+function toggleDiamondMeter() {
+    playMeterSound();
+    isMeterHired = !isMeterHired;
+    
+    if (isMeterHired) {
+        // Turn ON (HIRED / METER DOWN)
+        if (meterFlagLever) meterFlagLever.classList.add('hired');
+        if (meterStatusBox) {
+            meterStatusBox.classList.remove('vacant');
+            meterStatusBox.classList.add('hired');
+        }
+        if (meterStatusText) meterStatusText.textContent = 'HIRED / ચાલૂ';
+        
+        // Start Meter Engine
+        meterElapsedSeconds = 0;
+        updateMeterDisplay();
+        
+        clearInterval(meterTimer);
+        meterTimer = setInterval(() => {
+            meterElapsedSeconds++;
+            updateMeterDisplay();
+        }, 1000);
+    } else {
+        // Turn OFF (VACANT / METER UP)
+        if (meterFlagLever) meterFlagLever.classList.remove('hired');
+        if (meterStatusBox) {
+            meterStatusBox.classList.remove('hired');
+            meterStatusBox.classList.add('vacant');
+        }
+        if (meterStatusText) meterStatusText.textContent = 'VACANT / ખાલી';
+        
+        clearInterval(meterTimer);
+        meterElapsedSeconds = 0;
+        if (meterFareVal) meterFareVal.textContent = '0.00';
+        if (meterDistVal) meterDistVal.textContent = '0.00';
+        if (meterWaitVal) meterWaitVal.textContent = '00:00';
+    }
+}
+
+function updateMeterDisplay() {
+    if (!isMeterHired) return;
+    
+    const distKM = (meterElapsedSeconds * 0.005).toFixed(2);
+    const mins = String(Math.floor(meterElapsedSeconds / 60)).padStart(2, '0');
+    const secs = String(meterElapsedSeconds % 60).padStart(2, '0');
+    const waitStr = `${mins}:${secs}`;
+    const calculatedFare = (baseFare + (parseFloat(distKM) * 15.0) + ((meterElapsedSeconds / 60) * 1.5)).toFixed(2);
+    
+    if (meterFareVal) meterFareVal.textContent = calculatedFare;
+    if (meterDistVal) meterDistVal.textContent = distKM;
+    if (meterWaitVal) meterWaitVal.textContent = waitStr;
+}
+
+if (diamondMeterWidget) {
+    diamondMeterWidget.addEventListener('click', toggleDiamondMeter);
+}
+
 // Close modals when clicking outside
 document.addEventListener('click', (e) => {
     // Playlist Modal

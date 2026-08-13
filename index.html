@@ -39,19 +39,30 @@
             <div class="passengers" id="passengers-count">&bull; 1 PASSENGER</div>
             <button class="profile-btn" id="profile-btn">
                 <div class="avatar">👨🏽‍✈️</div>
-                Who's driving?
+                Driver's License
             </button>
             
-            <!-- Rickshaw Meter Dropdown -->
-            <div class="meter-box" id="meter-box">
-                <div class="meter-header">
-                    <span class="meter-title">FARE METER</span>
-                    <span class="meter-status">HIRED</span>
+            <!-- Driver's License Card Dropdown -->
+            <div class="meter-box license-card" id="meter-box">
+                <div class="license-top-strip">
+                    <span class="govt-tag">GUJARAT RTO &middot; AHMEDABAD</span>
+                    <span class="license-badge">VERIFIED</span>
                 </div>
-                <div class="meter-display">
-                    <span class="currency">₹</span>
-                    <span class="amount">Ankit</span>
+
+                <div class="license-header">
+                    <span class="license-title">ઓટો ડ્રાઇવર પરમિટ</span>
+                    <span class="license-status">&check; AUTHORIZED</span>
                 </div>
+
+                <div class="license-body">
+                    <div class="license-avatar-big">👨🏽‍✈️</div>
+                    <div class="license-info">
+                        <div class="driver-name">Ankit Bharadva</div>
+                        <div class="driver-role">Auto Rickshaw Captain &middot; AMD</div>
+                        <div class="permit-no">PERMIT: XXXXXX003</div>
+                    </div>
+                </div>
+
                 <div class="social-links" onclick="event.stopPropagation();">
                     <a href="https://www.linkedin.com/in/ankit-bharadva/" target="_blank" rel="noopener noreferrer" class="social-btn li-btn">
                         <svg style="pointer-events: none;" viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
@@ -73,16 +84,14 @@
     <!-- Main Center Content -->
     <main class="center-content">
         <div class="track-info-top">
-                અમદાવાદ માં એકલો ફરુ
-            </div>
+            અમદાવાદ માં એકલો ફરુ
+        </div>
         <h1 class="huge-title">ઓટો રિક્ષા</h1>
     </main>
 
     <!-- Bottom Player -->
     <div class="player-container">
         <div class="player-extras">
-            
-            
             <button class="horn-btn">
                 <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
                     <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
@@ -93,7 +102,77 @@
                 </div>
             </button>
         </div>
+
         <div class="player">
+            <!-- Mounted Diamond Electric Rickshaw Meter (Absolute Top Right of Player) -->
+            <div class="diamond-meter-widget" id="diamond-meter-widget" title="Click Lever or Meter to Toggle ON / OFF">
+                <div class="meter-outer-frame">
+                    <div class="screw top-l">&plus;</div>
+                    <div class="screw top-r">&plus;</div>
+                    <div class="screw bot-l">&plus;</div>
+                    <div class="screw bot-r">&plus;</div>
+                    
+                    <div class="meter-brand">DIAMOND ELECTRIC</div>
+                    <div class="meter-brand-line"></div>
+                    
+                    <div class="meter-lcd-screen">
+                        <div class="meter-lcd-row top-row">
+                            <div class="lcd-labels">
+                                <span class="lbl-en">FARE (RS.)</span>
+                                <span class="lbl-hi">किराया</span>
+                            </div>
+                            <div class="led-digits fare-digits" id="meter-fare-val">0.00</div>
+                        </div>
+                        
+                        <div class="meter-screen-divider"></div>
+                        
+                        <div class="meter-lcd-row mid-row">
+                            <div class="lcd-col">
+                                <div class="lcd-labels">
+                                    <span class="lbl-en">DIST (KM)</span>
+                                    <span class="lbl-gj">કિમી</span>
+                                </div>
+                                <div class="led-digits sub-digits" id="meter-dist-val">0.00</div>
+                            </div>
+                            <div class="lcd-col">
+                                <div class="lcd-labels">
+                                    <span class="lbl-en">WAIT (MIN)</span>
+                                    <span class="lbl-hi">समय</span>
+                                </div>
+                                <div class="led-digits sub-digits" id="meter-wait-val">00:00</div>
+                            </div>
+                        </div>
+                        
+                        <div class="meter-status-box vacant" id="meter-status-box">
+                            <span id="meter-status-text">VACANT / ખાલી</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Interactive Flag Lever -->
+                    <div class="meter-flag-lever" id="meter-flag-lever">
+                        <div class="lever-rod"></div>
+                        <div class="meter-down-flag">
+                            <span class="flag-t1">METER</span>
+                            <span class="flag-t2">DOWN</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Metallic Bracket Mount & Nut-Bolts -->
+                <div class="meter-mount-brackets">
+                    <div class="mount-leg left-leg">
+                        <div class="nut-bolt top-bolt"></div>
+                        <div class="metal-bar"></div>
+                        <div class="nut-bolt bottom-bolt"></div>
+                    </div>
+                    <div class="mount-leg right-leg">
+                        <div class="nut-bolt top-bolt"></div>
+                        <div class="metal-bar"></div>
+                        <div class="nut-bolt bottom-bolt"></div>
+                    </div>
+                </div>
+            </div>
+
             <div class="album-art-container">
                 <div class="album-art" style="background-image: none; background-color: rgba(255, 184, 0, 0.1);"></div>
                 <div class="vinyl-hole"></div>
