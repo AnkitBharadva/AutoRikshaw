@@ -155,18 +155,14 @@ function updateUIState() {
                 if (activeId) {
                     albumArt.style.backgroundImage = `url('https://img.youtube.com/vi/${activeId}/hqdefault.jpg')`;
                     if (titleCache[activeId]) {
-                        trackTitle.textContent = titleCache[activeId];
+                        const cacheData = titleCache[activeId];
+                        trackTitle.textContent = typeof cacheData === 'string' ? cacheData : cacheData.title;
+                        if (cacheData.author) trackArtist.textContent = cacheData.author;
                     } else {
-                        fetch(`https://noembed.com/embed?url=https://www.youtube.com/watch?v=${activeId}`)
-                            .then(res => res.json())
-                            .then(data => {
-                                if (data && data.title) {
-                                    titleCache[activeId] = data.title;
-                                    trackTitle.textContent = data.title;
-                                    if (data.author_name) trackArtist.textContent = data.author_name;
-                                }
-                            })
-                            .catch(() => {});
+                        queueTitleFetch(activeId, (cacheData) => {
+                            trackTitle.textContent = typeof cacheData === 'string' ? cacheData : cacheData.title;
+                            if (cacheData.author) trackArtist.textContent = cacheData.author;
+                        });
                     }
                 }
             }
@@ -710,6 +706,69 @@ if (loadPlaylistBtn) {
 
 const titleCache = {};
 
+// Queue to prevent overwhelming noembed API and browser network stack
+const fetchQueue = [];
+let isFetchingTitle = false;
+
+function queueTitleFetch(videoId, callback) {
+    if (titleCache[videoId]) {
+        callback(titleCache[videoId]);
+        return;
+    }
+    fetchQueue.push({ videoId, callback });
+    if (!isFetchingTitle) {
+        processFetchQueue();
+    }
+}
+
+function processFetchQueue() {
+    if (fetchQueue.length === 0) {
+        isFetchingTitle = false;
+        return;
+    }
+    isFetchingTitle = true;
+    
+    // Drain already-cached items synchronously to prevent call stack overflow
+    while (fetchQueue.length > 0) {
+        if (titleCache[fetchQueue[0].videoId]) {
+            const { videoId, callback } = fetchQueue.shift();
+            callback(titleCache[videoId]);
+        } else {
+            break;
+        }
+    }
+    
+    // Check again if queue is empty after draining
+    if (fetchQueue.length === 0) {
+        isFetchingTitle = false;
+        return;
+    }
+
+    // Process the next uncached item
+    const { videoId, callback } = fetchQueue.shift();
+
+    fetch(`https://noembed.com/embed?url=https://www.youtube.com/watch?v=${videoId}`)
+        .then(res => res.json())
+        .then(data => {
+            if (data && data.title) {
+                titleCache[videoId] = { title: data.title, author: data.author_name || "" };
+                callback(titleCache[videoId]);
+            } else {
+                // Cache a fallback to prevent infinite re-queueing of dead videos
+                titleCache[videoId] = { title: "Unknown Track", author: "" };
+                callback(titleCache[videoId]);
+            }
+        })
+        .catch(() => {
+            titleCache[videoId] = { title: "Unknown Track", author: "" };
+            callback(titleCache[videoId]);
+        })
+        .finally(() => {
+            // Wait 100ms between requests to avoid rate limits/hanging
+            setTimeout(processFetchQueue, 100);
+        });
+}
+
 function renderTrackList() {
     if (!player || !player.getPlaylist) return;
     const playlist = player.getPlaylist();
@@ -737,24 +796,19 @@ function renderTrackList() {
                 const data = player.getVideoData();
                 if (data && data.title) {
                     title = data.title;
-                    titleCache[videoId] = title;
+                    titleCache[videoId] = { title: data.title, author: data.author || "" };
                 }
             }
             
             if (titleCache[videoId]) {
-                titleSpan.textContent = titleCache[videoId];
+                const cacheData = titleCache[videoId];
+                titleSpan.textContent = typeof cacheData === 'string' ? cacheData : cacheData.title;
             } else {
                 titleSpan.textContent = title;
-                // Fetch the real title asynchronously from public oEmbed proxy
-                fetch(`https://noembed.com/embed?url=https://www.youtube.com/watch?v=${videoId}`)
-                    .then(res => res.json())
-                    .then(data => {
-                        if (data && data.title) {
-                            titleCache[videoId] = data.title;
-                            titleSpan.textContent = data.title;
-                        }
-                    })
-                    .catch(() => {});
+                // Use queue instead of blasting 50+ concurrent fetch requests
+                queueTitleFetch(videoId, (cacheData) => {
+                    titleSpan.textContent = typeof cacheData === 'string' ? cacheData : cacheData.title;
+                });
             }
             
             div.appendChild(img);
