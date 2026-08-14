@@ -19,6 +19,8 @@ let progressInterval;
 
 // Car Horn Sound
 const hornSound = new Audio("dragon-studio-boat-horn-386178.mp3");
+hornSound.preload = 'auto';
+hornSound.load();
 
 // DOM Elements
 const playBtn = document.getElementById('play-btn') || document.querySelector('.play-btn-main');
@@ -378,18 +380,27 @@ function playHorn() {
     hornSound.play();
 }
 
-hornBtn.addEventListener('click', playHorn);
+hornBtn.addEventListener('pointerdown', (e) => {
+    e.preventDefault(); // Prevent double-firing on touch
+    playHorn();
+});
 
 // Mobile horn button inside player controls
 const mobileHornBtn = document.getElementById('mobile-horn-btn');
 if (mobileHornBtn) {
-    mobileHornBtn.addEventListener('click', playHorn);
+    mobileHornBtn.addEventListener('pointerdown', (e) => {
+        e.preventDefault();
+        playHorn();
+    });
 }
 
 // Mobile horn pill on top-left of player
 const mobileHornPill = document.getElementById('mobile-horn-pill');
 if (mobileHornPill) {
-    mobileHornPill.addEventListener('click', playHorn);
+    mobileHornPill.addEventListener('pointerdown', (e) => {
+        e.preventDefault();
+        playHorn();
+    });
 }
 
 // --- Keyboard Shortcuts ---
@@ -587,6 +598,8 @@ let baseFare = 23.00;
 
 // --- Mechanical Meter Lever Sound (Plays meter sound.mp3) ---
 const meterAudio = new Audio('meter sound.mp3');
+meterAudio.preload = 'auto';
+meterAudio.load();
 
 function playMeterSound() {
     try {
@@ -653,7 +666,10 @@ function updateMeterDisplay() {
 }
 
 if (diamondMeterWidget) {
-    diamondMeterWidget.addEventListener('click', toggleDiamondMeter);
+    diamondMeterWidget.addEventListener('pointerdown', (e) => {
+        e.preventDefault();
+        toggleDiamondMeter();
+    });
 }
 
 // Close modals when clicking outside
